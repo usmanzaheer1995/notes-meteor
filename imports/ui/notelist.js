@@ -6,6 +6,7 @@ import { PropTypes } from 'prop-types';
 import { Notes } from './../api/notes';
 import NoteListHeader from './notelistheader';
 import NoteListItem from './notelistitem';
+import NoteListEmptyItem from './notelistemptyitem';
 
 export const NoteList = (props) => {
 
@@ -19,8 +20,8 @@ export const NoteList = (props) => {
         <div>
             <NoteListHeader />
             NoteList {props.notes.length}
+            {props.notes.length === 0? <NoteListEmptyItem/>: undefined} 
             {renderNotes()}
-
         </div>
     );
 }
