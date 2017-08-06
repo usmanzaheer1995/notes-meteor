@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import {Redirect} from 'react-router-dom';
-import {Session} from 'meteor/session';
+import { Redirect } from 'react-router-dom';
+import { Session } from 'meteor/session';
 
 import PrivateHeader from './privateheader';
 import NoteList from './notelist';
+import Editor from './editor';
 
 //statless functional component
 // export default Dashboard = (props) => {
@@ -20,12 +21,14 @@ import NoteList from './notelist';
 
 export default class Link extends Component {
     componentWillMount() {
-        if(!Meteor.userId()) {
-            <Redirect to='/'/>
+        if (!Meteor.userId()) {
+            <Redirect to='/' />
         }
         else {
-            Session.set('selectedNoteId', this.props.match.params.id);
-        }    
+            if (this.props.match) {
+                Session.set('selectedNoteId', this.props.match.params.id);
+            }
+        }
     }
 
     render() {
@@ -34,7 +37,9 @@ export default class Link extends Component {
                 <PrivateHeader title="Dashboard" />
                 <div className="page-content">
                     <NoteList />
+                    <Editor />
                 </div>
+
             </div>
         );
     }
