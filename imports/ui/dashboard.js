@@ -1,28 +1,41 @@
 import React, { Component } from 'react';
+import {Redirect} from 'react-router-dom';
+import {Session} from 'meteor/session';
 
 import PrivateHeader from './privateheader';
 import NoteList from './notelist';
 
 //statless functional component
-export default Dashboard = () => {
-    return (
-        <div>
-            <PrivateHeader title="Dashboard" />
-            <div className="page-content">
-                <NoteList/>
-            </div>
-        </div>
-    );
-}
-
-// export default class Link extends Component {
-//     render() {
-//         return (
-//             <div>
-//                 <PrivateHeader title="My links" />
-//                 <LinksList />
-//                 <AddLink/>
+// export default Dashboard = (props) => {
+//     console.log(props)
+//     return (
+//         <div>
+//             <PrivateHeader title="Dashboard" />
+//             <div className="page-content">
+//                 <NoteList/>
 //             </div>
-//         );
-//     }
+//         </div>
+//     );
 // }
+
+export default class Link extends Component {
+    componentWillMount() {
+        if(!Meteor.userId()) {
+            <Redirect to='/'/>
+        }
+        else {
+            Session.set('selectedNoteId', this.props.match.params.id);
+        }    
+    }
+
+    render() {
+        return (
+            <div>
+                <PrivateHeader title="Dashboard" />
+                <div className="page-content">
+                    <NoteList />
+                </div>
+            </div>
+        );
+    }
+}

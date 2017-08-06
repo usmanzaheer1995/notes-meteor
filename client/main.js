@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import ReactDOM from 'react-dom';
 import { Tracker } from 'meteor/tracker';
 import {Session} from 'meteor/session';
-import createBrowserHistory from 'history/createBrowserHistory'; 
+import createBrowserHistory from 'history/createBrowserHistory';
 
 import { onAuthChange, routes } from './../imports/routes/routes';
 import './../imports/startup/simple-schema-configuration';
