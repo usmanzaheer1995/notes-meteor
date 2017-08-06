@@ -21,3 +21,4 @@ accounts-password
 fourseven:scss@=4.5.4
 practicalmeteor:mocha
 react-meteor-data
+session

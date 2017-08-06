@@ -12,7 +12,7 @@ export const NoteList = (props) => {
 
     renderNotes = () => {
         return props.notes.map((note) => {
-            return <NoteListItem key={note._id} note={note} />
+            return <NoteListItem key={note._id} note={note} Session={{}}/>
         });
     }
 

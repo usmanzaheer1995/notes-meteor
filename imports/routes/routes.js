@@ -35,6 +35,9 @@ export const routes = (
             <Route path="/dashboard" render={() => {
                 return !Meteor.userId() ? <Redirect to="/" /> : <Dashboard />  //if user is not loggedin i.e. userid doesnt exist, go back to login page.
             }} />
+            <Route path="/dashboard/:id" render={() => {
+                return !Meteor.userId() ? <Redirect to="/" /> : <Dashboard />  //if user is not loggedin i.e. userid doesnt exist, go back to login page.
+            }} />
             <Route path="/signup" render={() => {
                 return Meteor.userId() ? <Redirect to="/dashboard" /> : <Signup />
             }} />
