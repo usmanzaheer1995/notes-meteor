@@ -1,21 +1,27 @@
 import React, { Component } from 'react';
 import { Accounts } from 'meteor/accounts-base';
 import { PropTypes } from 'prop-types';
+import {createContainer} from 'meteor/react-meteor-data';
 
-const PrivateHeader = (props) => {
+export const PrivateHeader = (props) => {
     return (
         <div className="private-header">
             <div className="private-header__content">
                 <h1 className="private-header__title">{props.title}</h1>
-                <button className="button button--link-text" onClick={() => Accounts.logout()}>Logout</button>
+                <button className="button button--link-text" onClick={() => props.handleLogout()}>Logout</button>
             </div>
         </div>
     );
 }
 
 PrivateHeader.propTypes = {
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    handleLogout: PropTypes.func.isRequired
 }
 
-//to use proptypes in statless functional components, export at the bottom
-export default PrivateHeader;
+//check react-meteor-data docs for info
+export default createContainer(() => {
+    return {
+        handleLogout: () => Accounts.logout()
+    };
+}, PrivateHeader);

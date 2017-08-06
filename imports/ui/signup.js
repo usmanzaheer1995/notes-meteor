@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Accounts } from 'meteor/accounts-base';
+import { createContainer } from 'meteor/react-meteor-data';
+import { PropTypes } from 'prop-types';
 
-export default class Signup extends Component {
+export class Signup extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -24,7 +26,7 @@ export default class Signup extends Component {
             });
         }
 
-        Accounts.createUser({ email, password }, (err) => {
+        this.props.createUser({ email, password }, (err) => {
             if (err) {
                 this.setState((prevState) => {
                     return {
@@ -56,9 +58,19 @@ export default class Signup extends Component {
                         <button className="button">Create account</button>
                     </form>
 
-                    <p><Link to="/">Already have an account?</Link></p>
+                    <Link to="/">Already have an account?</Link>
                 </div>
             </div>
         );
     }
 }
+
+Signup.propTypes = {
+    createUser: PropTypes.func.isRequired
+}
+
+export default createContainer(() => {
+    return {
+        createUser: Accounts.createUser
+    };
+}, Signup);

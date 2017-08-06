@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Meteor } from 'meteor/meteor'
+import { Meteor } from 'meteor/meteor';
+import { createContainer } from 'meteor/react-meteor-data';
 
-export default class Login extends Component {
+export class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -15,7 +17,7 @@ export default class Login extends Component {
         let email = this.refs.email.value.trim();
         let password = this.refs.password.value.trim();
 
-        Meteor.loginWithPassword({ email }, password, (err) => {
+        this.props.loginWithPassword({ email }, password, (err) => {
             if (err) {
                 this.setState((prevState) => {
                     return {
@@ -46,10 +48,20 @@ export default class Login extends Component {
                         <button className="button">Login</button>
                     </form>
 
-                    <Link to='/signup'>Need an account?</Link>
+                     <Link to='/signup'>Need an account?</Link> 
                 </div>
             </div>
 
         );
     }
 }
+
+Login.propTypes = {
+    loginWithPassword: PropTypes.func.isRequired
+}
+
+export default createContainer(() => {
+    return {
+        loginWithPassword: Meteor.loginWithPassword
+    };
+}, Login);
