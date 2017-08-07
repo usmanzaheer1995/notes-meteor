@@ -1,33 +1,19 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import { Session } from 'meteor/session';
+import { createContainer } from 'meteor/react-meteor-data';
 
 import PrivateHeader from './privateheader';
 import NoteList from './notelist';
 import Editor from './editor';
 
-//statless functional component
-// export default Dashboard = (props) => {
-//     console.log(props)
-//     return (
-//         <div>
-//             <PrivateHeader title="Dashboard" />
-//             <div className="page-content">
-//                 <NoteList/>
-//             </div>
-//         </div>
-//     );
-// }
+export class Dashboard extends Component {
 
-export default class Link extends Component {
-    componentWillMount() {
+    componentWillUpdate() {
+        console.log('update')
         if (!Meteor.userId()) {
-            <Redirect to='/' />
-        }
-        else {
-            if (this.props.match) {
-                Session.set('selectedNoteId', this.props.match.params.id);
-            }
+            this.props.history.push('/')
+            //history.go('/')
         }
     }
 
@@ -44,3 +30,10 @@ export default class Link extends Component {
         );
     }
 }
+
+export default createContainer((props) => {
+    return {
+        userId: Meteor.userId()
+    }
+
+}, withRouter(Dashboard));
