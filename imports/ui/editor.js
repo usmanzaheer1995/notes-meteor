@@ -66,7 +66,8 @@ export class Editor extends Component {
 Editor.propTypes = {
     note: PropTypes.object,
     selectedNoteId: PropTypes.string,
-    call: PropTypes.func.isRequired
+    call: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired
 }
 
 export default createContainer(() => {
