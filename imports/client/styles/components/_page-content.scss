@@ -19,6 +19,7 @@
     top: $header-height;
     left: -100vw;
     bottom: 0;
+    z-index: 1; //sometimes on mobile, where setting the overflow property messes with the z-index, so we set it here explicitly as well
     
     @include desktop () {
         display: flex;   
