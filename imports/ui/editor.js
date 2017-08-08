@@ -43,12 +43,14 @@ export class Editor extends Component {
         if (this.props.note) {
             return (
                 <div className="editor">
-                    <input type="text" value={this.state.title} placeholder="enter note title" onChange={this.handleTitleChange.bind(this)} />
-                    <textarea value={this.state.body} placeholder="Your note here" onChange={this.handleBodyChange.bind(this)}></textarea>
-                    <button onClick={() => {
-                        this.props.call('notes.remove', this.props.note._id);
-                        this.props.history.push('/dashboard');
-                    }}>Delete note</button>
+                    <input className="editor__title" value={this.state.title} placeholder="enter note title" onChange={this.handleTitleChange.bind(this)} />
+                    <textarea className="editor__body" value={this.state.body} placeholder="Your note here" onChange={this.handleBodyChange.bind(this)}></textarea>
+                    <div>
+                        <button className="button button--secondary" onClick={() => {
+                            this.props.call('notes.remove', this.props.note._id);
+                            this.props.history.push('/dashboard');
+                        }}>Delete note</button>
+                    </div>
                 </div>
             );
         }
@@ -56,7 +58,7 @@ export class Editor extends Component {
         else {
             return (
                 <div className="editor">
-                    <p>
+                    <p className="editor__message">
                         {this.props.selectedNoteId ? 'No note found' : 'Pick or create a note to get started'}
                     </p>
                 </div>
