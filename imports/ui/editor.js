@@ -3,7 +3,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Session } from 'meteor/session';
 import { PropTypes } from 'prop-types';
 import { Meteor } from 'meteor/meteor';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import { Notes } from './../api/notes';
 
@@ -31,20 +31,20 @@ export class Editor extends Component {
         const currentNoteId = this.props.note ? this.props.note._id : undefined;
         const prevNoteId = prevProps.note ? prevProps.note._id : undefined;
 
-        if(currentNoteId && currentNoteId !== prevNoteId) {
-           this.setState({
-               title: this.props.note.title,
-               body: this.props.note.body
-           }) ;
+        if (currentNoteId && currentNoteId !== prevNoteId) {
+            this.setState({
+                title: this.props.note.title,
+                body: this.props.note.body
+            });
         }
     }
     render() {
         //we get a note
         if (this.props.note) {
             return (
-                <div>
+                <div className="editor">
                     <input type="text" value={this.state.title} placeholder="enter note title" onChange={this.handleTitleChange.bind(this)} />
-                    <textarea value={this.state.body} cols="30" rows="10" placeholder="Your note here" onChange={this.handleBodyChange.bind(this)}></textarea>
+                    <textarea value={this.state.body} placeholder="Your note here" onChange={this.handleBodyChange.bind(this)}></textarea>
                     <button onClick={() => {
                         this.props.call('notes.remove', this.props.note._id);
                         this.props.history.push('/dashboard');
@@ -55,9 +55,11 @@ export class Editor extends Component {
         //we get an id, but it's not a match or we get nothing
         else {
             return (
-                <p>
-                    {this.props.selectedNoteId ? 'No note found' : 'Pick or create a note to get started'}
-                </p>
+                <div className="editor">
+                    <p>
+                        {this.props.selectedNoteId ? 'No note found' : 'Pick or create a note to get started'}
+                    </p>
+                </div>
             );
         }
     }
