@@ -10,6 +10,7 @@ export const NoteListItem = (props) => {
     return (
         <div className={className} onClick={() => {
             props.Session.set('selectedNoteId', props.note._id);
+            props.Session.set('isNavOpen', false);
         }}>
             <h5 className="item__title">{props.note.title || 'Untitled note'}</h5>   {/*Check if note has a title, otherwise use other string*/}
             <p className="item__subtitle">{moment(props.note.updatedAt).format('DD/M/YY')}</p>
